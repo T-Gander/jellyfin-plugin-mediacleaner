@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jellyfin.Plugin.MediaCleaner", "Jellyfin.Plugin.MediaCleaner\Jellyfin.Plugin.MediaCleaner.csproj", "{C829A763-0F22-6F09-C0C4-819BD41CAEBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C829A763-0F22-6F09-C0C4-819BD41CAEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C829A763-0F22-6F09-C0C4-819BD41CAEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C829A763-0F22-6F09-C0C4-819BD41CAEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C829A763-0F22-6F09-C0C4-819BD41CAEBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45A396D1-3C65-49C3-8C25-474E5B27BED3}
+	EndGlobalSection
+EndGlobal
