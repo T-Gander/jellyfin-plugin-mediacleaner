@@ -13,4 +13,19 @@ public class PluginConfiguration : BasePluginConfiguration
     public PluginConfiguration()
     {
     }
+
+    /// <summary>
+    /// Gets or sets the api for your Radarr instance.
+    /// </summary>
+    public string RadarrAPIKey { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the api for your Sonarr instance.
+    /// </summary>
+    public string SonarrAPIKey { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the cut off days before deleting unwatched files.
+    /// </summary>
+    public int DaysUnwatched { get; set; } = 90;
 }

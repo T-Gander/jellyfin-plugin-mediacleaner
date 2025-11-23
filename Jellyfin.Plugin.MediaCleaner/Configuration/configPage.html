@@ -2,13 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Template</title>
+    <title>Media Cleaner</title>
 </head>
 <body>
-    <div id="TemplateConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+    <div id="MediaCleanerConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
         <div data-role="content">
             <div class="content-primary">
-                <form id="TemplateConfigForm">
+                <form id="MediaCleanerConfigForm">
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="RadarrAPIKey">Radarr API Key</label>
+                        <input id="RadarrAPIKey" name="RadarrAPIKey" type="text" is="emby-input" />
+                        <div class="fieldDescription">The api key used by your radarr instance</div>
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="SonarrAPIKey">Sonarr API Key</label>
+                        <input id="SonarrAPIKey" name="SonarrAPIKey" type="text" is="emby-input" />
+                        <div class="fieldDescription">The api key used by your sonarr instance</div>
+                    </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="DaysUnwatched">Days Unwatched</label>
+                        <input id="DaysUnwatched" name="DaysUnwatched" type="number" is="emby-input" style="width: 20%;"/>
+                        <div class="fieldDescription">How many days to wait before deleting unwatched media</div>
+                    </div>
                     <!-- <div class="selectContainer">
                         <label class="selectLabel" for="Options">Several Options</label>
                         <select is="emby-select" id="Options" name="Options" class="emby-select-withcolor emby-select">
@@ -41,31 +56,37 @@
             </div>
         </div>
         <script type="text/javascript">
-            var TemplateConfig = {
+            var MediaCleanerConfig = {
                 pluginUniqueId: 'fef007a8-3e8f-4aa8-a22e-486a387f4192'
             };
 
-            document.querySelector('#TemplateConfigPage')
+            document.querySelector('#MediaCleanerConfigPage')
                 .addEventListener('pageshow', function() {
                     Dashboard.showLoadingMsg();
-                    ApiClient.getPluginConfiguration(TemplateConfig.pluginUniqueId).then(function (config) {
+                    ApiClient.getPluginConfiguration(MediaCleanerConfig.pluginUniqueId).then(function (config) {
                         // document.querySelector('#Options').value = config.Options;
                         // document.querySelector('#AnInteger').value = config.AnInteger;
                         // document.querySelector('#TrueFalseSetting').checked = config.TrueFalseSetting;
                         // document.querySelector('#AString').value = config.AString;
+                        document.querySelector('#RadarrAPIKey').value = config.RadarrAPIKey;
+                        document.querySelector('#SonarrAPIKey').value = config.SonarrAPIKey;
+                        document.querySelector('#DaysUnwatched').value = config.DaysUnwatched;
                         Dashboard.hideLoadingMsg();
                     });
                 });
 
-            document.querySelector('#TemplateConfigForm')
+            document.querySelector('#MediaCleanerConfigForm')
                 .addEventListener('submit', function(e) {
                 Dashboard.showLoadingMsg();
-                ApiClient.getPluginConfiguration(TemplateConfig.pluginUniqueId).then(function (config) {
+                ApiClient.getPluginConfiguration(MediaCleanerConfig.pluginUniqueId).then(function (config) {
                     // config.Options = document.querySelector('#Options').value;
                     // config.AnInteger = document.querySelector('#AnInteger').value;
                     // config.TrueFalseSetting = document.querySelector('#TrueFalseSetting').checked;
                     // config.AString = document.querySelector('#AString').value;
-                    ApiClient.updatePluginConfiguration(TemplateConfig.pluginUniqueId, config).then(function (result) {
+                    config.RadarrAPIKey = document.querySelector('#RadarrAPIKey').value;
+                    config.SonarrAPIKey = document.querySelector('#SonarrAPIKey').value;
+                    config.DaysUnwatched = document.querySelector('#DaysUnwatched').value;
+                    ApiClient.updatePluginConfiguration(MediaCleanerConfig.pluginUniqueId, config).then(function (result) {
                         Dashboard.processPluginConfigurationUpdateResult(result);
                     });
                 });
