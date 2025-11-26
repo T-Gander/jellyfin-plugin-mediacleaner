@@ -4,6 +4,7 @@ using System.Globalization;
 using Jellyfin.Plugin.MediaCleaner.Configuration;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Common.Plugins;
+using MediaBrowser.Controller.Entities;
 using MediaBrowser.Model.Plugins;
 using MediaBrowser.Model.Serialization;
 
@@ -35,6 +36,10 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     /// Gets the current plugin instance.
     /// </summary>
     public static Plugin? Instance { get; private set; }
+
+    private static List<BaseItem> StaleMovies { get; set; } = new();
+
+    private static List<BaseItem> StaleShows { get; set; } = new();
 
     /// <inheritdoc />
     public IEnumerable<PluginPageInfo> GetPages()
