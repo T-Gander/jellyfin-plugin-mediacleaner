@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using MediaBrowser.Controller.Entities;
 using MediaBrowser.Model.Plugins;
 
 namespace Jellyfin.Plugin.MediaCleaner.Configuration;
@@ -27,5 +30,5 @@ public class PluginConfiguration : BasePluginConfiguration
     /// <summary>
     /// Gets or sets the cut off days before deleting unwatched files.
     /// </summary>
-    public int DaysUnwatched { get; set; } = 90;
+    public int StaleMediaCutoff { get; set; } = 90;
 }
