@@ -115,17 +115,10 @@ public sealed class StaleMediaTask : IScheduledTask
                 var episodesWithUserData = episodes.Where(episode => episode.UserData.Count > 0).ToList();
                 foreach (var episode in episodesWithUserData)
                 {
-                    bool stale = false;
                     var mostRecentUserData = episode.UserData.OrderByDescending(data => data.LastPlayedDate).First();
                     if (mostRecentUserData.LastPlayedDate < DateTime.Now.AddDays(-Configuration.StaleMediaCutoff))
                     {
                         staleEpisodes.AddRange(episodes);
-                        stale = true;
-                        break;
-                    }
-
-                    if (stale)
-                    {
                         break;
                     }
                 }

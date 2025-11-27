@@ -37,10 +37,6 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     /// </summary>
     public static Plugin? Instance { get; private set; }
 
-    private static List<BaseItem> StaleMovies { get; set; } = new();
-
-    private static List<BaseItem> StaleShows { get; set; } = new();
-
     /// <inheritdoc />
     public IEnumerable<PluginPageInfo> GetPages()
     {
