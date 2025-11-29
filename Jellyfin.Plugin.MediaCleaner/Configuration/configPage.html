@@ -20,9 +20,9 @@
                         <div class="fieldDescription">The api key used by your sonarr instance</div>
                     </div>
                     <div class="inputContainer">
-                        <label class="inputLabel inputLabelUnfocused" for="DaysUnwatched">Days Unwatched</label>
-                        <input id="DaysUnwatched" name="DaysUnwatched" type="number" is="emby-input" style="width: 20%;"/>
-                        <div class="fieldDescription">How many days to wait before deleting unwatched media</div>
+                        <label class="inputLabel inputLabelUnfocused" for="StaleMediaCutoff">Stale Media Cutoff</label>
+                        <input id="StaleMediaCutoff" name="StaleMediaCutoff" type="number" is="emby-input" style="width: 20%;"/>
+                        <div class="fieldDescription">How many days to wait before marking files as stale</div>
                     </div>
                     <!-- <div class="selectContainer">
                         <label class="selectLabel" for="Options">Several Options</label>
@@ -70,7 +70,7 @@
                         // document.querySelector('#AString').value = config.AString;
                         document.querySelector('#RadarrAPIKey').value = config.RadarrAPIKey;
                         document.querySelector('#SonarrAPIKey').value = config.SonarrAPIKey;
-                        document.querySelector('#DaysUnwatched').value = config.DaysUnwatched;
+                        document.querySelector('#StaleMediaCutoff').value = config.StaleMediaCutoff;
                         Dashboard.hideLoadingMsg();
                     });
                 });
@@ -85,7 +85,7 @@
                     // config.AString = document.querySelector('#AString').value;
                     config.RadarrAPIKey = document.querySelector('#RadarrAPIKey').value;
                     config.SonarrAPIKey = document.querySelector('#SonarrAPIKey').value;
-                    config.DaysUnwatched = document.querySelector('#DaysUnwatched').value;
+                    config.StaleMediaCutoff = document.querySelector('#StaleMediaCutoff').value;
                     ApiClient.updatePluginConfiguration(MediaCleanerConfig.pluginUniqueId, config).then(function (result) {
                         Dashboard.processPluginConfigurationUpdateResult(result);
                     });

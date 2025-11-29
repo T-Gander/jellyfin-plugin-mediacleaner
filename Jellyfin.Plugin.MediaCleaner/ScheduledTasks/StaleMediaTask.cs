@@ -61,14 +61,25 @@ public sealed class StaleMediaTask : IScheduledTask
 
         _logger.LogInformation("Total items found: {AllItems}", allItems);
 
-        List<BaseItem> shows = [.. allItems.Where(item => item.GetBaseItemKind() == BaseItemKind.Series)];
+        List<BaseItem> series = [.. allItems.Where(item => item.GetBaseItemKind() == BaseItemKind.Series)];
         List<BaseItem> movies = [.. allItems.Where(item => item.GetBaseItemKind() == BaseItemKind.Movie && item.UserData.Count > 0)];
 
-        List<BaseItem> staleEpisodes = [.. shows.SelectMany(GetStaleEpisodes)];
+        List<BaseItem> staleEpisodes = [.. series.SelectMany(GetStaleEpisodes)];
         List<BaseItem> staleMovies = [.. GetStaleMovies(movies)];
 
         _logger.LogInformation("Stale Movies found: {StaleMovies}", staleMovies.Count);
-        _logger.LogInformation("Stale Series found: {StaleShows}", staleEpisodes.Count);
+        if (staleMovies.Count > 0)
+        {
+            _logger.LogInformation("Movies: {Names}", string.Join(", ", staleMovies.Select(movie => movie.Name)));
+        }
+
+        _logger.LogInformation("Stale Episodes found: {StaleEpisodes}", staleEpisodes.Count);
+        if (staleEpisodes.Count > 0)
+        {
+            // Firstly figure out the seasons, and then the Series to find the name.
+            List<string> seriesNames = FindDistinctSeriesNamesFromEpisodes(staleEpisodes);
+            _logger.LogInformation("Series: {Names}", string.Join(", ", seriesNames));
+        }
 
         return Task.CompletedTask;
     }
@@ -86,6 +97,27 @@ public sealed class StaleMediaTask : IScheduledTask
         }
 
         return staleMovies;
+    }
+
+    private List<string> FindDistinctSeriesNamesFromEpisodes(List<BaseItem> episodes)
+    {
+        Guid[] seasonIds = [.. episodes.Select(episode => episode.ParentId).Distinct()];
+
+        var seasons = _libraryManager.GetItemList(new InternalItemsQuery
+        {
+            ItemIds = seasonIds
+        });
+
+        Guid[] seriesIds = [.. seasons.Select(season => season.ParentId).Distinct()];
+
+        var series = _libraryManager.GetItemList(new InternalItemsQuery
+        {
+            ItemIds = seriesIds
+        });
+
+        List<string> seriesNames = [.. series.Select(series => series.Name).Distinct()];
+
+        return seriesNames;
     }
 
     private List<BaseItem> GetStaleEpisodes(BaseItem item)
