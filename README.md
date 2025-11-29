@@ -6,6 +6,7 @@ Planned features:
 - Better logging to show more than just the count.
 - A page that shows what media is currently flagged for removal. And a button to confirm removal.
 - Integration with sonarr and radarr apis to delete your media.
+- Whitelist for shows to ignore. (Seasonal shows)
 
 Future features if I feel like it:
 - Configurable media types.
